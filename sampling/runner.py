@@ -1,16 +1,39 @@
 from collections import Counter
 
+import pandas as pd
 import xgboost
 from imblearn.metrics import classification_report_imbalanced
 from sklearn.metrics import *
+from sklearn.model_selection import train_test_split as tts
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
 
 from preprocessing import preprocess
 
 
 class Runner :
     def __init__(self):
+        df = preprocess()
+
+        pca = PCA(n_components=1, random_state=72)
+        df['mother'] = \
+            pca.fit_transform(df[['IDADEMAE', 'ESTCIVMAE',
+                                  'ESCMAE2010', 'CODOCUPMAE',
+                                  'QTDFILVIVO', 'QTDFILMORT']])
+        df['newborn'] = \
+            pca.fit_transform(df[['APGAR5', 'RACACOR', 'PESO']])
+        df['prenatal'] = \
+            pca.fit_transform(df[['CONSULTAS', 'GESTACAO',
+                                  'MESPRENAT', 'PARTO']])
+
+        ss = StandardScaler()
+        X = pd.DataFrame(ss.fit_transform(df.drop(['OBITO'],
+                                                  axis=1)))
+        y = df['OBITO']
+
         (self.Xtrain, self.Xtest,
-         self.ytrain, self.ytest) = preprocess()
+         self.ytrain, self.ytest) = \
+            tts(X, y, test_size=0.7, random_state=72)
 
 
     def _get_base (self):

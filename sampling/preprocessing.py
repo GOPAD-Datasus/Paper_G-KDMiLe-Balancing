@@ -1,6 +1,4 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split as tts
-from sklearn.preprocessing import StandardScaler
 
 
 def deal_category (df: pd.DataFrame):
@@ -34,10 +32,4 @@ def preprocess ():
     except FileNotFoundError:
         df = apply_preprocess()
 
-    ss = StandardScaler()
-    X = pd.DataFrame(ss.fit_transform(df.drop(['OBITO'],
-                                              axis=1)))
-    y = df['OBITO']
-
-    # X_train, X_test, y_train, y_test
-    return tts(X, y, test_size=0.7, random_state=72)
+    return df
