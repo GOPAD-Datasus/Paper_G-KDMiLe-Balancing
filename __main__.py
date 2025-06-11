@@ -1,9 +1,13 @@
+from combine.combine import combining
+from runner import Runner
 from sampling.oversampling.oversampling import oversampling
 from sampling.preprocessing import preprocess
 from sampling.undersampling.undersampling import undersampling
 
 if __name__ == '__main__':
-    X_train, X_test, y_train, y_test = preprocess()
+    #runner = Runner()
+    #print(f'{runner._get_base()}')
 
-    undersampling(X_train, X_test, y_train, y_test)
-    oversampling(X_train, X_test, y_train, y_test)
+    undersampling()
+    oversampling()
+    combining()

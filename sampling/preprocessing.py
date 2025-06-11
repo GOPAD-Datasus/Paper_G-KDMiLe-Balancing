@@ -9,17 +9,34 @@ def deal_category (df: pd.DataFrame):
             df[i] = pd.to_numeric(df[i], errors='coerce')
     return df
 
-def preprocess ():
-    df = pd.read_parquet('input/SIMORTN5.parquet.gzip')
+
+def apply_preprocess ():
+    df = pd.read_parquet('data/raw/SIMORTN5.parquet.gzip')
 
     df = deal_category(df)
 
-    df = df.loc[(df['RACACOR'] != 2) & (df['RACACOR'] != 5)]
+    df = df.loc[(df['RACACOR'] != 2) &
+                (df['RACACOR'] != 5)]
 
-    df = df.dropna(axis=1)
+    df = df.dropna()
 
-    scale = StandardScaler()
-    X = pd.DataFrame(scale.fit_transform(df.drop(['OBITO'], axis=1), ))
+    df.set_index('index', inplace=True)
+
+    df.to_parquet('data/preprocessed/data.parquet.gzip')
+
+    return df
+
+
+def preprocess ():
+    try:
+        df = pd.read_parquet('data/preprocessed/' +
+                             'data.parquet.gzip')
+    except FileNotFoundError:
+        df = apply_preprocess()
+
+    ss = StandardScaler()
+    X = pd.DataFrame(ss.fit_transform(df.drop(['OBITO'],
+                                              axis=1)))
     y = df['OBITO']
 
     # X_train, X_test, y_train, y_test

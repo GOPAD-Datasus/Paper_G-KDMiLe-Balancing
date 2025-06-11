@@ -1,18 +1,25 @@
-from imblearn.over_sampling import SMOTENC, ADASYN
+from imblearn.over_sampling import SMOTENC, ADASYN, RandomOverSampler
 
-from sampling.metrics import apply_model, get_metrics
+from runner import Runner
 
 
-def smotenc (X_train, X_test, y_train, y_test):
+def random_os ():
+    model = RandomOverSampler(sampling_strategy='minority',
+                              random_state=72,
+                              shrinkage=0.1)
+
+    runner = Runner()
+    return runner.pipeline(model)
+
+
+def smotenc ():
     # sm = SMOTENC()
     pass
 
 
-def adasyn (X_train, X_test, y_train, y_test):
-    ada = ADASYN(sampling_strategy='not majority',
-                 random_state=72)
+def adasyn ():
+    model = ADASYN(sampling_strategy='not majority',
+                   random_state=72)
 
-    X_train_r, y_train_r = ada.fit_resample(X_train, y_train)
-
-    y_pred = apply_model(X_train_r, X_test, y_train_r)
-    return get_metrics(y_pred, y_test)
+    runner = Runner()
+    return runner.pipeline(model)

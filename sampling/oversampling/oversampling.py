@@ -1,8 +1,9 @@
-from sampling.oversampling.utils import adasyn
+from sampling.oversampling.utils import *
 
 
-def oversampling (X_train, X_test, y_train, y_test):
-    res = adasyn(X_train, X_test, y_train, y_test)
-    print(f'ADASYN: {res}')
+def oversampling ():
+    print(f'ADASYN: {adasyn()}')
+
+    print(f'Random Oversampler: {random_os()}')
 
     pass
