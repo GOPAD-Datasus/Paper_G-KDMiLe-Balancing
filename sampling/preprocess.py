@@ -32,4 +32,4 @@ def preprocess ():
     except FileNotFoundError:
         df = apply_preprocess()
 
-    return df
+    return df[:500_000]

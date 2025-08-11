@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split as tts
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 
-from preprocessing import preprocess
+from preprocess import preprocess
 
 
 class Runner :
