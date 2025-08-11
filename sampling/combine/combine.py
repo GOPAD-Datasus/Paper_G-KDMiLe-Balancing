@@ -1,7 +1,7 @@
-from combine.utils import smoteenn
+from combine.utils import smoteenn, smotetomek
 
 
-def combining ():
+def combine ():
     print(f'SMOTEENN: {smoteenn()}')
 
-    pass
+    print(f'SMOTETomek: {smotetomek()}')
