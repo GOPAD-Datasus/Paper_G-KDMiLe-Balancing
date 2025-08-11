@@ -35,7 +35,6 @@ class Runner :
          self.ytrain, self.ytest) = \
             tts(X, y, test_size=0.7, random_state=72)
 
-
     def _get_base (self):
         print(sorted(Counter(self.ytrain).items()))
 
@@ -43,7 +42,6 @@ class Runner :
         xgb.fit(self.Xtrain, self.ytrain)
 
         return self._get_metrics(xgb.predict(self.Xtest))
-
 
     def _get_metrics(self, ypred):
         target_names = ['0) Não óbito', '1) Óbito']
@@ -55,7 +53,6 @@ class Runner :
                 'pre': precision_score(self.ytest, ypred),
                 'rec': recall_score(self.ytest, ypred),
                 'f1s': f1_score(self.ytest, ypred)}
-
 
     def pipeline (self, model):
         Xsample, ysample = model.fit_resample(self.Xtrain,
