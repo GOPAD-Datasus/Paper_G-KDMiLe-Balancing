@@ -1,7 +1,7 @@
-from combine.utils import smoteenn, smotetomek
+from .utils import smoteenn, smotetomek
 
 
-def combine ():
+def combine():
     print(f'SMOTEENN: {smoteenn()}')
 
     print(f'SMOTETomek: {smotetomek()}')

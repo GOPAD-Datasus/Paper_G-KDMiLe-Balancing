@@ -1,14 +1,14 @@
 import pandas as pd
 
 
-def deal_category (df: pd.DataFrame):
+def deal_category(df: pd.DataFrame):
     for i in df.columns:
         if df[i].dtype == 'category':
             df[i] = pd.to_numeric(df[i], errors='coerce')
     return df
 
 
-def apply_preprocess ():
+def apply_preprocess():
     df = pd.read_parquet('data/raw/SIMORTN5.parquet.gzip')
 
     df = deal_category(df)
@@ -25,7 +25,7 @@ def apply_preprocess ():
     return df
 
 
-def preprocess ():
+def preprocess():
     try:
         df = pd.read_parquet('data/preprocessed/' +
                              'data.parquet.gzip')

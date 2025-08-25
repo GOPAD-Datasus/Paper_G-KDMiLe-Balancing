@@ -1,9 +1,10 @@
-from imblearn.under_sampling import RandomUnderSampler, ClusterCentroids, EditedNearestNeighbours, OneSidedSelection
+from imblearn.under_sampling import \
+    RandomUnderSampler, EditedNearestNeighbours, OneSidedSelection
 
-from runner import Runner
+from sampling.runner import Runner
 
 
-def random_us ():
+def random_us():
     model = RandomUnderSampler(sampling_strategy='not minority',
                                random_state=72)
 
@@ -11,7 +12,7 @@ def random_us ():
     return runner.pipeline(model)
 
 
-def edited_nn ():
+def edited_nn():
     model = EditedNearestNeighbours(sampling_strategy='not minority',
                                     n_jobs=-1)
 
@@ -19,7 +20,7 @@ def edited_nn ():
     return runner.pipeline(model)
 
 
-def one_sided_selection ():
+def one_sided_selection():
     model = OneSidedSelection(sampling_strategy='majority',
                               random_state=72,
                               n_seeds_S=10,

@@ -1,9 +1,9 @@
-from imblearn.over_sampling import SMOTENC, ADASYN, RandomOverSampler
+from imblearn.over_sampling import ADASYN, RandomOverSampler
 
-from runner import Runner
+from sampling.runner import Runner
 
 
-def random_os ():
+def random_os():
     model = RandomOverSampler(sampling_strategy='minority',
                               random_state=72,
                               shrinkage=0.1)
@@ -12,12 +12,7 @@ def random_os ():
     return runner.pipeline(model)
 
 
-def smotenc ():
-    # sm = SMOTENC()
-    pass
-
-
-def adasyn ():
+def adasyn():
     model = ADASYN(sampling_strategy='not majority',
                    random_state=72)
 

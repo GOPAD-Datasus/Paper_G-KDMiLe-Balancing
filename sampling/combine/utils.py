@@ -3,10 +3,10 @@ from imblearn.under_sampling import EditedNearestNeighbours as ENN, TomekLinks
 from imblearn.over_sampling import SMOTE
 from sklearn.neighbors import NearestNeighbors
 
-from runner import Runner
+from sampling.runner import Runner
 
 
-def smoteenn ():
+def smoteenn():
     enn = ENN(sampling_strategy='not minority')
 
     smote = SMOTE(sampling_strategy='minority',
@@ -22,7 +22,7 @@ def smoteenn ():
     return runner.pipeline(model)
 
 
-def smotetomek ():
+def smotetomek():
     knn = NearestNeighbors(n_neighbors=3,
                            algorithm="ball_tree")
 

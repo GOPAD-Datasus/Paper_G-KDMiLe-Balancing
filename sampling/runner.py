@@ -3,7 +3,8 @@ from collections import Counter
 import pandas as pd
 import xgboost
 from imblearn.metrics import classification_report_imbalanced
-from sklearn.metrics import *
+from sklearn.metrics import \
+    accuracy_score, precision_score, recall_score, f1_score
 from sklearn.model_selection import train_test_split as tts
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
@@ -11,7 +12,7 @@ from sklearn.decomposition import PCA
 from preprocess import preprocess
 
 
-class Runner :
+class Runner:
     def __init__(self):
         df = preprocess()
 
@@ -35,7 +36,7 @@ class Runner :
          self.ytrain, self.ytest) = \
             tts(X, y, test_size=0.7, random_state=72)
 
-    def _get_base (self):
+    def get_base(self):
         print(sorted(Counter(self.ytrain).items()))
 
         xgb = xgboost.XGBClassifier()
@@ -54,7 +55,7 @@ class Runner :
                 'rec': recall_score(self.ytest, ypred),
                 'f1s': f1_score(self.ytest, ypred)}
 
-    def pipeline (self, model):
+    def pipeline(self, model):
         Xsample, ysample = model.fit_resample(self.Xtrain,
                                               self.ytrain)
 
@@ -64,4 +65,3 @@ class Runner :
         xgb.fit(Xsample, ysample)
 
         return self._get_metrics(xgb.predict(self.Xtest))
-
